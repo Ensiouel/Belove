@@ -4,6 +4,7 @@ local Transform = Component:inherit("Transform")
 function Transform:load()
 
 end
+
 function Transform:init()
     return true
 end

@@ -1,7 +1,5 @@
 local Class = require( "belove.libraries.Class" )
 
-local self_path = (...):match("^.+[%.\\/]")
-
 -- =============================================================================
 -- Entity
 -- =============================================================================
@@ -16,23 +14,45 @@ function Entity:init()
 end
 
 function Entity:addComponent( Component, ... ) --> Component
-    assert(Component.__type == "Component", "Type not base on component!")
+    assert(Component:type("Component"), "Type not base on Component!")
     local component = Component( ... )
+    local component_type = component:type()
     component.entity = self
     if component:init() and self:hasComponent(component) == false then
-        self.components[component.name] = component
-        return self.components[component.name]
+        self.components[component_type] = component
+        return self.components[component_type]
     end
     return nil
 end
 
-function Entity:getComponent(component)
-
+function Entity:getComponent(Component)
+    assert(Component:type("Component"), "Type not base on Component!")
+    local component_type = Component:type()
+    return self.components[component_type]
 end
 
-function Entity:hasComponent(component) --> bool
-    assert(component.__type == "Component", "Type not base on component!")
-    return self.components[component.name] ~= nil
+function Entity:hasComponent(Component) --> bool
+    assert(Component:type("Component"), "Type not base on Component!")
+    local component_type = Component:type()
+    return self.components[component_type] ~= nil
+end
+
+function Entity:update(dt)
+end
+
+function Entity:draw()
+end
+
+function Entity:updateComponents(dt)
+    for _, component in pairs(self.components) do
+        component:update(dt)
+    end
+end
+
+function Entity:drawComponents()
+    for _, component in pairs(self.components) do
+        component:draw()
+    end
 end
 
 return Entity
