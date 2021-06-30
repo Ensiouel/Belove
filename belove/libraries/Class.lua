@@ -8,7 +8,7 @@ function Class:new(name)
 end
 
 function Class:inherit( name, ... )
-    local parent = self( ... )
+    local parent    = self( ... )
     local prototype = Class( name )
     table.insert(prototype.__inherited, parent:type() )
     table.insert(prototype.__inherited, name )
@@ -20,8 +20,8 @@ function Class:type() --> string
 end
 
 function Class:typeOf( name ) --> bool
-    for _, v in pairs(self.__inherited) do
-        if v == name then
+    for _, type in pairs(self.__inherited) do
+        if type == name then
             return true
         end
     end
@@ -32,7 +32,7 @@ function Class.__call(self, ...)
     local obj = {}
     setmetatable(obj, {__index = self})
     if obj.load then
-        obj:load(...)
+        obj:load( ... )
     end
 	return obj
 end

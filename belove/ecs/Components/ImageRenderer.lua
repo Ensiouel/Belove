@@ -3,21 +3,22 @@ local Component = require ("belove.ecs.Component")
 local Vector = require ( "belove.libraries.Vector")
 
 -- =============================================================================
--- Transform
+-- ImageRenderer
 -- =============================================================================
-local Transform = Component:inherit("Transform")
-function Transform:load()
-    self.position = Vector()
-    self.rotation = Vector()
-    self.scale    = Vector()
+local ImageRenderer = Component:inherit( "ImageRenderer" )
+function ImageRenderer:load()
+    self.transform = nil
 end
 
-function Transform:init()
+function ImageRenderer:init()
     return true
 end
 
-function Transform:update(dt)
+function ImageRenderer:update(dt)
 
 end
 
-return Transform
+function ImageRenderer:draw()
+end
+
+return ImageRenderer

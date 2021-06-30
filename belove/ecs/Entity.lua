@@ -4,8 +4,8 @@ local Class = require( "belove.libraries.Class" )
 -- Entity
 -- =============================================================================
 local Entity = Class( "Entity" )
-function Entity:load()
-    self.name       = nil
+function Entity:load( name )
+    self.name       = name
     self.components = {}
 end
 
@@ -15,9 +15,9 @@ end
 
 function Entity:addComponent( Component, ... ) --> Component
     assert(Component:type("Component"), "Type not base on Component!")
-    local component = Component( ... )
+    local component      = Component( ... )
     local component_type = component:type()
-    component.entity = self
+    component.entity     = self
     if component:init() and self:hasComponent(component) == false then
         self.components[component_type] = component
         return self.components[component_type]
@@ -32,6 +32,9 @@ function Entity:getComponent(Component)
 end
 
 function Entity:hasComponent(Component) --> bool
+    if type(Component) == "string" then
+        return self.components[Component] ~= nil
+    end
     assert(Component:type("Component"), "Type not base on Component!")
     local component_type = Component:type()
     return self.components[component_type] ~= nil
