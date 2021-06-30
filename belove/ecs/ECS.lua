@@ -7,7 +7,8 @@ local ECS = {
 }
 
 ECS.Components = {
-    Transform = require( components_path .. "Transform" )
+    Transform     = require( components_path .. "Transform" ),
+    ImageRenderer = require( components_path .. "ImageRenderer" )
 }
 
 return ECS

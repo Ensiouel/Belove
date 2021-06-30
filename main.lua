@@ -1,12 +1,18 @@
 local Belove = require( "belove" )
+local TextureManager = Belove.TextureManager
+
 local Vector = require ( "belove.libraries.Vector")
 
-local player1 = Belove.ECS.Entity( "enemy" )
-player1:addComponent( Belove.ECS.Components.Transform )
+local texture = TextureManager:loadTexture( "test.png", "idle" )
+
+local player1 = Belove.ECS.Entity( "Enemy" )
+local transform = player1:addComponent( Belove.ECS.Components.Transform )
+local imageRenderer = player1:addComponent( Belove.ECS.Components.ImageRenderer )
+
+imageRenderer:setImage(TextureManager:getTexture("idle"):getImage("idle_0"))
 
 function love.load()
-    bTexture = Belove.BTextureManager:loadTexture( "test.png" )
-    bTexture:setImageMode("multiple")
+
 end
 
 function love.update(dt)
@@ -14,5 +20,5 @@ function love.update(dt)
 end
 
 function love.draw()
-    player1:draw()
+    player1:drawComponents()
 end

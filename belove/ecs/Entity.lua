@@ -26,6 +26,9 @@ function Entity:addComponent( Component, ... ) --> Component
 end
 
 function Entity:getComponent(Component)
+    if type(Component) == "string" then
+        return self.components[Component]
+    end
     assert(Component:type("Component"), "Type not base on Component!")
     local component_type = Component:type()
     return self.components[component_type]

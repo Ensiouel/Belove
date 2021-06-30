@@ -5,6 +5,7 @@ local self_path = (...):match("^.+[%.\\/]")
 local BImage = require ( self_path .. "." .. "BImage")
 local BQuad  = require ( self_path .. "." .. "BQuad")
 local Vector = require ( "belove.libraries.Vector")
+local utils  = require ( "belove.utils")
 
 local lg = love.graphics
 local lf = love.filesystem
@@ -13,12 +14,12 @@ local lf = love.filesystem
 -- BTexture
 -- =============================================================================
 local BTexture = Class( "BTexture" )
-function BTexture:load( filename, imageMode, filterMode, wrapMode )
-    self.name       = filename:match( "^[^.]*" ) --< string
+function BTexture:load( filename, name, imageMode, filterMode, wrapMode )
+    self.name       = name or filename:match( "^[^.]*" ) --< string
     self.texture    = nil                        --< Image
     self.imageMode  = imageMode  or "single"     --< multiple ~ single
-    self.filterMode = filterMode or "nearest"     --< linear ~ nearest
-    self.wrapMode   = wrapMode   or "clamp"      --< clamp ~ repeat
+    self.filterMode = filterMode or "nearest"    --< linear   ~ nearest
+    self.wrapMode   = wrapMode   or "clamp"      --< clamp    ~ repeat
     self.bImage     = {}                         --< [BImage]
 
     if self:loadTexture( filename ) == false then
@@ -50,14 +51,20 @@ function BTexture:loadTexture( filename )
 end
 
 function BTexture:addBImage( bQuad )
+    assert(bQuad:type("BQuad"), "Type not base on BQuad!")
     local bImage = BImage( self.name .. "_" .. #self.bImage, self, bQuad )
-    table.insert( self.bImage, bImage )
+    self.bImage[bImage.name] = bImage
+end
+
+function BTexture:getImage( name )
+    return self.bImage[name]
 end
 
 function BTexture:sliceByCellSize( size, offset, padding )
     if imageMode == "single" then
         return nil
     end
+    self.bImage = {}
     local textureWidth, textureHeight = self.texture:getDimensions()
 end
 
