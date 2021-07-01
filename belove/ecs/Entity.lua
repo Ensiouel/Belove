@@ -14,6 +14,9 @@ function Entity:init()
 end
 
 function Entity:addComponent( Component, ... ) --> Component
+    if type(Component) == "string" then
+        Component = Belove.ECS.Components[Component]
+    end
     assert(Component:type("Component"), "Type not base on Component!")
     local component      = Component( ... )
     local component_type = component:type()
