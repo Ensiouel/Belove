@@ -1,19 +1,25 @@
 require( "belove" )
 
 local Player = require( "prefabs.Player" )
+local scene = Belove.Scene( "Main" )
+
+Belove.SceneManager:addScene( scene )
+Belove.SceneManager:setActiveScene( "Main" )
 
 Belove.TextureManager:loadTexture( "test.png", "idle" )
 
-local player1 = Player()
+local player1 = Player( "Ensiouel" )
+
+scene:addEntity( player1 )
 
 function love.load()
-
+   
 end
 
 function love.update(dt)
-    player1:updateComponents(dt)
+    scene:update( dt )
 end
 
 function love.draw()
-    player1:drawComponents()
+    scene:draw()
 end

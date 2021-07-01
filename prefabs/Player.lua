@@ -4,7 +4,8 @@ local Entity = require ("belove.ecs.Entity")
 -- Player
 -- =============================================================================
 local Player = Entity:inherit( "Player" )
-function Player:load()
+function Player:load( name )
+    self.name          = name
     self.transform     = self:addComponent("Transform")
     self.imageRenderer = self:addComponent("ImageRenderer")
 

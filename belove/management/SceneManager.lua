@@ -14,6 +14,7 @@ function SceneManager:setActiveScene( name )
 end
 
 function SceneManager:addScene( scene )
+    assert( scene:typeOf("Scene"), "Type not base on Scene!" )
     if self.scenes[scene.name] == nil then
         self.scenes[scene.name] = scene
     end

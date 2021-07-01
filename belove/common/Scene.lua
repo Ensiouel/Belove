@@ -14,7 +14,8 @@ function Scene:init()
     return true
 end
 
-function Scene:addEntity(entity)
+function Scene:addEntity( entity )
+    assert( entity:typeOf("Entity"), "Type not base on Entity!" )
     if self.entities[entity.name] == nil then
         self.entities[entity.name] = entity
     end

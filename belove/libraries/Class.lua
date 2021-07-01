@@ -3,6 +3,7 @@ function Class:new(name)
     local сlass = {}
     сlass.__type      = name
     сlass.__inherited = {}
+    table.insert( сlass.__inherited, name )
     setmetatable(сlass, self)
     self.__index = self; return сlass
 end
