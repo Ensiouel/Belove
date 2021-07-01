@@ -11,4 +11,9 @@ ECS.Components = {
     ImageRenderer = require( components_path .. "ImageRenderer" )
 }
 
+function ECS:loadComponent(component)
+    assert(component:type("Component"), "Type not base on Component!")
+    self.Components[component:type()] = component
+end
+
 return ECS

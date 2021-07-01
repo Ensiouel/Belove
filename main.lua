@@ -1,12 +1,10 @@
 require( "belove" )
 
+local Player = require( "prefabs.Player" )
+
 Belove.TextureManager:loadTexture( "test.png", "idle" )
 
-local player1 = Belove.ECS.Entity( "Enemy" )
-local transform = player1:addComponent( "Transform" )
-local imageRenderer = player1:addComponent( "ImageRenderer" )
-
-imageRenderer:setImage(Belove.TextureManager:getTexture("idle"):getImage("idle_0"))
+local player1 = Player()
 
 function love.load()
 
