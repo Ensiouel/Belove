@@ -5,6 +5,7 @@ local self_path = (...):match("^.+[%.\\/]")
 local BImage = require ( self_path .. "." .. "BImage")
 local BQuad  = require ( self_path .. "." .. "BQuad")
 local Vector = require ( "belove.libraries.Vector")
+
 local utils  = require ( "belove.utils")
 
 local lg = love.graphics
@@ -16,11 +17,11 @@ local lf = love.filesystem
 local BTexture = Class( "BTexture" )
 function BTexture:load( filename, name, imageMode, filterMode, wrapMode )
     self.name       = name or filename:match( "^[^.]*" ) --< string
-    self.texture    = nil                        --< Image
-    self.imageMode  = imageMode  or "single"     --< multiple ~ single
-    self.filterMode = filterMode or "nearest"    --< linear   ~ nearest
-    self.wrapMode   = wrapMode   or "clamp"      --< clamp    ~ repeat
-    self.bImage     = {}                         --< [BImage]
+    self.texture    = nil                                --< Image
+    self.imageMode  = imageMode  or "single"             --< multiple ~ single
+    self.filterMode = filterMode or "nearest"            --< linear   ~ nearest
+    self.wrapMode   = wrapMode   or "clamp"              --< clamp    ~ repeat
+    self.bImage     = {}                                 --< [BImage]
 
     if self:loadTexture( filename ) == false then
         return nil

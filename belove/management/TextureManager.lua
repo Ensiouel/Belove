@@ -12,13 +12,13 @@ function TextureManager:load()
     self.data = {}
 end
 
-function TextureManager:loadTexture( filename, name, imageMode, filterMode, wrapMode )
+function TextureManager:loadTexture( filename, ... )
     local hexFilename = love.data.encode("string", "hex",  love.data.hash("sha1", filename))
 
     if self.data[hexFilename] then
         return self.data[hexFilename]
     else
-        local bTexture = BTexture( filename, name, imageMode, filterMode, wrapMode )
+        local bTexture = BTexture( filename, ... )
         self.data[hexFilename] = bTexture
         return self.data[hexFilename]
     end
